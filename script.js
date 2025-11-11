@@ -1,58 +1,62 @@
-// MoodXperience - Interactive Sound Edition
+// MoodXperience
 // Author: Ujjawal Bhardwaj
+// Description: Interactive mood-based experience app with color & sound
 
-const buttons = document.querySelectorAll(".mood-btn");
-const message = document.getElementById("message");
+// Select elements
+const buttons = document.querySelectorAll('.mood-btn');
+const message = document.getElementById('message');
+const bgMusic = document.getElementById('bg-music');
 
 // Mood data
 const moods = {
   happy: {
-    bg: "linear-gradient(135deg, #ffd166, #fca311)",
-    text: "Keep smiling — happiness looks great on you! 😊",
-    sound: "sound-happy"
+    bg: "linear-gradient(135deg, #ffe259, #ffa751)",
+    text: "Keep smiling – happiness looks great on you! 😊",
+    sound: "./sounds/happy.mp3"
   },
   calm: {
     bg: "linear-gradient(135deg, #a8edea, #fed6e3)",
-    text: "Breathe in peace, breathe out stress. 🌿",
-    sound: "sound-calm"
-  },
-  energetic: {
-    bg: "linear-gradient(135deg, #ff006e, #f9c74f)",
-    text: "Unstoppable energy! Let’s make things happen ⚡",
-    sound: "sound-energetic"
+    text: "Breathe in peace, breathe out stress 🌿",
+    sound: "./sounds/calm.mp3"
   },
   sad: {
-    bg: "linear-gradient(135deg, #5aa9e6, #b8c25d)",
-    text: "It’s okay to slow down — brighter days are coming 💙",
-    sound: "sound-sad"
+    bg: "linear-gradient(135deg, #667db6, #0082c8, #667db6)",
+    text: "It’s okay to feel sad sometimes 💙",
+    sound: "./sounds/sad.mp3"
+  },
+  energetic: {
+    bg: "linear-gradient(135deg, #f6d365, #fda085)",
+    text: "Unstoppable energy ⚡ Let’s go!",
+    sound: "./sounds/energetic.mp3"
   }
 };
 
-// Add click behavior to each mood button
-buttons.forEach(btn => {
-  btn.addEventListener("click", () => {
-    const moodType = btn.getAttribute("data-mood");
-    const selectedMood = moods[moodType];
+// Add click behavior for each mood button
+buttons.forEach(button => {
+  button.addEventListener('click', () => {
+    const mood = button.getAttribute('data-mood');
+    const selected = moods[mood];
 
-    // Change background
-    document.body.style.background = selectedMood.bg;
-    document.body.style.backgroundSize = "200% 200%";
-    document.body.style.animation = "moveGradient 10s ease infinite";
+    // Change background smoothly
+    document.body.style.background = selected.bg;
+    document.body.style.transition = "background 1s ease";
 
-    // Change text
-    message.textContent = selectedMood.text;
-    message.classList.remove("show");
-    setTimeout(() => message.classList.add("show"), 50);
+    // Show mood message
+    message.textContent = selected.text;
+    message.style.opacity = "0";
+    setTimeout(() => {
+      message.style.opacity = "1";
+      message.style.transition = "opacity 1s ease";
+    }, 100);
 
-    // Stop any sound currently playing
-    Object.values(moods).forEach(m => {
-      const audio = document.getElementById(m.sound);
-      audio.pause();
-      audio.currentTime = 0;
-    });
-
-    // Play the new sound
-    const moodSound = document.getElementById(selectedMood.sound);
-    moodSound.play();
+    // Play the corresponding sound
+    bgMusic.src = selected.sound;
+    bgMusic.volume = 0.8;
+    bgMusic.play().catch(err => console.log("Audio playback blocked:", err));
   });
+});
+
+// Optional: default background when page loads
+window.addEventListener('load', () => {
+  document.body.style.background = "linear-gradient(135deg, #3e2723, #5d4037)";
 });
