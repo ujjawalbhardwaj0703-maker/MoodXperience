@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MoodXperience</title>
+
+  <!-- Link CSS -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Website Icon (Optional) -->
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/4712/4712109.png" type="image/png" />
+</head>
+
+<body>
+  <!-- Main App Container -->
+  <div class="container">
+    <h1>MoodXperience</h1>
+    <p>Select your current mood:</p>
+
+    <!-- Mood Buttons -->
+    <div class="buttons">
+      <button class="mood-btn" data-mood="happy">😊 Happy</button>
+      <button class="mood-btn" data-mood="calm">😌 Calm</button>
+      <button class="mood-btn" data-mood="energetic">⚡ Energetic</button>
+      <button class="mood-btn" data-mood="sad">😔 Sad</button>
+    </div>
+
+    <!-- Message Output -->
+    <div id="message"></div>
+  </div>
+
+  <!-- Mood Sounds -->
+  <audio id="sound-happy" src="sounds/happy.mp3"></audio>
+  <audio id="sound-calm" src="sounds/calm.mp3"></audio>
+  <audio id="sound-energetic" src="sounds/energetic.mp3"></audio>
+  <audio id="sound-sad" src="sounds/sad.mp3"></audio>
+
+  <!-- JavaScript -->
+  <script src="script.js"></script>
+</body>
+</html>
